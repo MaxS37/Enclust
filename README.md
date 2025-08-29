@@ -1,11 +1,11 @@
 # Enclust
 
-**Enclust** ist ein R-Paket zur Analyse und Clusterung von Zeitreihen, speziell für Wetterdaten.  
-Es bietet Funktionen zur Datenvorbereitung, Ähnlichkeitsberechnung, Clustering und Visualisierung.
+**Enclust** ist ein R-Paket zur Analyse und Clusterung von Zeitreihen, speziell für Umweltdaten.  
+Es bietet Funktionen zur Datenerhebung, dem Clustering und Visualisierung dieser.
 
 ## Installation
 
-Du kannst das Paket direkt von GitHub installieren:
+Man kann das Paket direkt in R-Stdio installieren:
 
 ```r
 # Falls devtools nicht installiert ist
