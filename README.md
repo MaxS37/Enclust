@@ -1,6 +1,6 @@
 # Enclust
 
-**Enclust** ist ein R-Paket zur Analyse und Clusterung von Zeitreihen, speziell für Umweltdaten 
+**Enclust** ist ein R-Paket zur Analyse und Clusterung von Zeitreihen, speziell für Wettermodell-Ensemblevorhersagen 
 von https://nomads.ncep.noaa.gov/
 
 Es bietet Funktionen zur Datenerhebung, dem Clustering und Visualisierung dieser.
