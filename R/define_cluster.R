@@ -111,6 +111,8 @@ define_cluster <- function(data,
     for (clust in unique(df$Cluster[df$Timeindex == ts])) {
       idx <- df$Timeindex == ts & df$Cluster == clust
 
+      df$clustersize[idx] <- sum(idx)
+
       if(sum(idx) < 2) next
 
       # k wählen je nach Punktmenge
