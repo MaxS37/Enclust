@@ -57,8 +57,8 @@ plot_cluster <- function(data,
                          background = "grey37",
                          axis_bg = "grey37",
                          grid_col = "white",
-                         xaxis_text = list(color = "black", size = 10),
-                         yaxis_text = list(color = "black", size = 10),
+                         xaxis_text = list(color = "black", size = 15),
+                         yaxis_text = list(color = "black", size = 15),
                          break_times = "2 day"){
 
 
@@ -98,7 +98,9 @@ plot_cluster <- function(data,
         panel.grid.major  = element_line(color = grid_col),
         axis.text.x = do.call(element_text, xaxis_text),
         axis.text.y = do.call(element_text, yaxis_text),
-        legend.background = element_rect(fill = axis_bg)
+        legend.background = element_rect(fill = axis_bg),
+        legend.title = element_text(size = 16),
+        legend.text  = element_text(size = 14)
       )
 
     # Punkte hinzufügen
@@ -224,7 +226,9 @@ plot_cluster <- function(data,
       panel.grid.major  = element_line(color = grid_col),
       axis.text.x = do.call(element_text, xaxis_text),
       axis.text.y = do.call(element_text, yaxis_text),
-      legend.background = element_rect(fill = axis_bg)
+      legend.background = element_rect(fill = axis_bg),
+      legend.title = element_text(size = 16),
+      legend.text  = element_text(size = 14)
     )
 
   # Punkte hinzufügen (wie vorher)
