@@ -98,6 +98,7 @@ define_cluster <- function(data,
   df$betweenss <- NA_integer_
   df$totss <- NA_integer_
   df$totwithinss <- NA_integer_
+  df$centers <- NA_character_
   df$betweensstotss <- NA_integer_
   df$rsquared <- NA_integer_
   df$clustersize <- NA_integer_
@@ -131,6 +132,7 @@ define_cluster <- function(data,
       df$betweenss[idx] <- km$betweenss
       df$totss[idx] <- km$totss
       df$totwithinss[idx] <- km$tot.withinss
+      df$centers[idx] <- paste(round(km$centers,3), collapse = " ; ")
       df$betweensstotss[idx] <- km$betweenss/km$totss
       df$rsquared[idx] <- 1 - km$tot.withinss/km$totss
 
