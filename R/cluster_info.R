@@ -54,7 +54,6 @@ cluster_info <- function(df) {
       totss          = mean(totss),
       totwithinss    = mean(totwithinss),
       betweensstotss = mean(betweensstotss),
-      rsquared      = mean(rsquared),
       .groups = "drop"
     )
 
@@ -70,7 +69,6 @@ cluster_info <- function(df) {
       totss          = ifelse(all(is.na(totss)), NA, max(totss, na.rm = TRUE)),
       totwithinss    = ifelse(all(is.na(totwithinss)), NA, max(totwithinss, na.rm = TRUE)),
       betweensstotss = ifelse(all(is.na(betweensstotss)), NA, max(betweensstotss, na.rm = TRUE)),
-      rsquared      = ifelse(all(is.na(rsquared)), NA, max(rsquared, na.rm = TRUE)),
       .groups = "drop"
     )
 
@@ -94,7 +92,7 @@ cluster_info <- function(df) {
   print(cluster_sizes)
 
   cat("\nCluster Stats:\n")
-  print(cluster_stats)
+  print(t(cluster_stats))
 
   invisible(list(
     cluster_amount = cluster_amount,

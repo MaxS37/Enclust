@@ -47,7 +47,8 @@
 define_cluster <- function(data,
                            k=2,
                            limit = function(km,subdata,a=4) max(diff(km$centers)) > a,
-                           max_cluster = 8){
+                           max_cluster = 8,
+                           max_depth = 3){
 
 
   #wenn Zahl übergeben als limit verwenden
@@ -100,7 +101,6 @@ define_cluster <- function(data,
   df$totwithinss <- NA_integer_
   df$centers <- NA_character_
   df$betweensstotss <- NA_integer_
-  df$rsquared <- NA_integer_
   df$clustersize <- NA_integer_
 
 
@@ -134,11 +134,17 @@ define_cluster <- function(data,
       df$totwithinss[idx] <- km$tot.withinss
       df$centers[idx] <- paste(round(km$centers,3), collapse = " ; ")
       df$betweensstotss[idx] <- km$betweenss/km$totss
-      df$rsquared[idx] <- 1 - km$tot.withinss/km$totss
 
       map <- cluster_mapping(unique(df$Cluster))
       df$Clusterlabel <- map[df$Cluster]
+
+      #maximale tiefe (1.1.1 -> Tiefe 2)
+      depth <- unique(nchar(df$Clusterlabel[idx]) - nchar(gsub("\\.","",df$Clusterlabel[idx])) )
+      if(depth >= max_depth) next
+
+      #maximale anzahl an cluster
       if(length(unique(df$Clusterlabel)) >= max_cluster) next
+      #schwellenwert
       if(!limit(km,df[idx,])) next
 
 
