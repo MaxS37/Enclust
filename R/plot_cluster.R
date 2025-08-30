@@ -42,13 +42,15 @@
 #'
 #')
 
-plot_cluster <- function(df,
+plot_cluster <- function(data,
                          col_palette= c("#67FF00","#FFF000","#FFB556","#FF7133","#FF0000","#5700A4","#2100FF"),
                          return_data = FALSE,
                          linesize = 1.2,
                          linealpha = 1,
                          points = list(),
+                         fade = TRUE,
                          fade_till_end = FALSE,
+                         legend = FALSE,
                          steps = 1,
                          background = "grey37",
                          axis_bg = "grey37",
@@ -57,18 +59,67 @@ plot_cluster <- function(df,
                          yaxis_text = list(color = "black", size = 10),
                          break_times = "1 day"){
 
+  df <- data
+
   if(!is.list(points)) stop("points has to be a list")
   if(!is.list(xaxis_text)) stop("xaxis_text has to be a list")
   if(!is.list(yaxis_text)) stop("yaxis_text has to be a list")
   if(!is.numeric(linesize)) stop("has to be numeric")
   if(!is.numeric(steps) || steps < 1) stop("steps muss >=1 sein")
 
+
+  #Farben zuordnen
   n_clusters <- length(unique(df$Clusterlabel))
   color_ramp <- colorRampPalette(col_palette)
   colors <- color_ramp(n_clusters)
   sorted_clusters <- sort(unique(df$Clusterlabel))
   cluster_colors <- setNames(colors, sorted_clusters)
   df$Color <- cluster_colors[df$Clusterlabel]
+
+  if(!fade){
+    # plot erstellen
+    plot <- ggplot(df) +
+      geom_line(aes(x = date_and_time, y = Measure,
+                    color = Color, group = Member),
+                linewidth = linesize,
+                alpha = linealpha,
+                na.rm = TRUE) +
+      scale_color_identity(
+        guide  = if(legend) "legend" else "none",
+        breaks = if(legend) cluster_colors else NULL,
+        labels = if(legend) names(cluster_colors) else NULL,
+        name   = if(legend) "Cluster" else NULL
+      ) +
+      scale_x_datetime(date_labels = "%d.%m. %H:00", date_breaks = break_times) +
+      theme(
+        panel.background = element_rect(fill = background),
+        plot.background  = element_rect(fill = axis_bg),
+        panel.grid.major  = element_line(color = grid_col),
+        axis.text.x = do.call(element_text, xaxis_text),
+        axis.text.y = do.call(element_text, yaxis_text),
+        legend.background = element_rect(fill = axis_bg)
+      )
+
+    # Punkte hinzufügen
+    if(length(points) > 0) {
+      plot <- plot +
+        do.call(geom_point, c(
+          list(aes(x = date_and_time, y = Measure, color = Color),
+               data = df,
+               show.legend = FALSE),
+          points
+        ))
+    }
+
+    # daten mitgeben
+    if(return_data){
+      return(list(plot = plot, data = df))
+    } else {
+      return(plot)
+    }
+  }
+
+
 
   color_steps <- function(colors, breaks, max_ts) {
     res <- character(0)
@@ -107,10 +158,10 @@ plot_cluster <- function(df,
     ) |>
     ungroup()
 
-  #df ohne zwischenschritte speichern
-  steplessdf <- df
+  #df ohne extra zwischenschritte speichern
+  noextrastepsdf <- df
 
-  #extra schritte hinzufügen
+  #extra schritte erstellen
   if(steps > 1){
     extrasteps <- function(x1, y1, x2, y2, col1, col2, steps){
 
@@ -133,6 +184,7 @@ plot_cluster <- function(df,
       )
     }
 
+    #zwischenschritte einfügen
     df <- df |>
       filter(!is.na(Timeindex_end)) |>
       group_by(Member) |>
@@ -149,6 +201,8 @@ plot_cluster <- function(df,
       ungroup()
   }
 
+
+  #plot erstellen
   plot <- ggplot(df) +
     geom_segment(aes(x = date_and_time, y = Measure,
                      xend = date_and_time_end, yend = Measure_end,
@@ -156,28 +210,37 @@ plot_cluster <- function(df,
                  linewidth = linesize,
                  alpha = linealpha,
                  na.rm = TRUE) +
-    scale_color_identity() +
-    scale_x_datetime(date_labels = "%d.%m. %H:00",  date_breaks = break_times) +
+    scale_color_identity(
+      guide = if(legend) "legend" else "none",
+      breaks = if(legend) cluster_colors else NULL,
+      labels = if(legend) names(cluster_colors) else NULL,
+      name   = if(legend) "Cluster" else NULL
+    ) +
+    scale_x_datetime(date_labels = "%d.%m. %H:00", date_breaks = break_times) +
     theme(
       panel.background = element_rect(fill = background),
       plot.background  = element_rect(fill = axis_bg),
       panel.grid.major  = element_line(color = grid_col),
-      axis.text.x = do.call(element_text,xaxis_text),
-      axis.text.y = do.call(element_text,yaxis_text)
+      axis.text.x = do.call(element_text, xaxis_text),
+      axis.text.y = do.call(element_text, yaxis_text),
+      legend.background = element_rect(fill = axis_bg)
     )
 
+  # Punkte hinzufügen (wie vorher)
   if(length(points) > 0) {
     plot <- plot +
       do.call(geom_point, c(
         list(aes(x = date_and_time, y = Measure, color = dyncolor),
-             data = steplessdf,
+             data = noextrastepsdf,
              show.legend = FALSE),
         points
       ))
   }
 
+
+  #daten mitgeben?
   if(return_data){
-    return(list(plot = plot,data = df,datawos = steplessdf))
+    return(list(plot = plot,data = df,steplessdata = noextrastepsdf))
   } else {
     return(plot)
   }
