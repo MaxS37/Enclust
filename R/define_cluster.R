@@ -1,4 +1,4 @@
-#' @title define_cluster
+#' @title create clusters on given dataset
 #'
 #' @description
 #' Define clusters in ensemble forecast data

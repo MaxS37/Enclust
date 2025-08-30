@@ -1,4 +1,4 @@
-#' @title cluster_info
+#' @title Get cluster information
 #'
 #' @description
 #' This function gives a summary of the clustered dataframe of define_cluster

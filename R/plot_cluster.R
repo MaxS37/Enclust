@@ -1,4 +1,4 @@
-#' @title plot_cluster
+#' @title create plots for clustered data
 #'
 #' @description Plot cluster evolution for ensemble forecast data.
 #'
