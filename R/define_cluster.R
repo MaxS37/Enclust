@@ -24,6 +24,8 @@
 #' If given a custom limit function the function should return TRUE if the clustering should be done
 #' @param max_cluster Maximum allowed number of clusters.
 #'
+#' @param max_depth Maximum depth of a clusterlabel (eg. 1.1.1.2 -> depth = 3)
+#'
 #' @return A data frame with additional columns:
 #' \describe{
 #'   \item{Cluster}{Raw Clustersequence (eg. 1.1.1.1)}

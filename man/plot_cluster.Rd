@@ -25,6 +25,8 @@ plot_cluster(
 )
 }
 \arguments{
+\item{data}{A dataframe created by the define_cluster function}
+
 \item{col_palette}{Character vector of colors to use for clusters.}
 
 \item{return_data}{Logical. If TRUE, returns a list containing the plot and the processed data.}
@@ -35,9 +37,13 @@ plot_cluster(
 
 \item{points}{List. Additional arguments for adding points (e.g. size).}
 
+\item{fade}{Logical. If TRUE a color of a cluster fades to their next}
+
 \item{fade_till_end}{Logical. If TRUE, cluster colors fade until the end of the time series.}
 
-\item{steps}{Numeric. Number of extra steps between 2 time steps, creates smoother coloring}
+\item{legend}{Logical. If TRUE, adds a legend containing which clusters have which color}
+
+\item{steps}{Numeric. Number of extra steps between 2 time steps, creates smoother fade coloring}
 
 \item{background}{Character. Background color of the plot.}
 
@@ -50,8 +56,6 @@ plot_cluster(
 \item{yaxis_text}{List of parameters passed to \code{element_text()} for y-axis text.}
 
 \item{break_times}{Character. Breaks for the x-axis in \code{scale_x_datetime}.}
-
-\item{df}{A dataframe created by the define_cluster function}
 }
 \value{
 If \code{return_data = FALSE} (default), returns a \code{ggplot} object.

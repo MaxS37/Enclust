@@ -9,14 +9,16 @@
 #' points, fading effects, and axis appearance. Optionally, the processed
 #' data can also be returned.
 #'
-#' @param df A dataframe created by the define_cluster function
+#' @param data A dataframe created by the define_cluster function
 #' @param col_palette Character vector of colors to use for clusters.
 #' @param return_data Logical. If TRUE, returns a list containing the plot and the processed data.
 #' @param linesize Numeric. defines which size the line should have
 #' @param linealpha Numeric between 0 and 1. Transparency of the cluster lines.
 #' @param points List. Additional arguments for adding points (e.g. size).
+#' @param fade Logical. If TRUE a color of a cluster fades to their next
 #' @param fade_till_end Logical. If TRUE, cluster colors fade until the end of the time series.
-#' @param steps Numeric. Number of extra steps between 2 time steps, creates smoother coloring
+#' @param legend Logical. If TRUE, adds a legend containing which clusters have which color
+#' @param steps Numeric. Number of extra steps between 2 time steps, creates smoother fade coloring
 #' @param background Character. Background color of the plot.
 #' @param axis_bg Character. Background color of the axis.
 #' @param grid_col Character. Color of grid lines in the plot.
@@ -59,7 +61,6 @@ plot_cluster <- function(data,
                          yaxis_text = list(color = "black", size = 10),
                          break_times = "1 day"){
 
-  df <- data
 
   if(!is.list(points)) stop("points has to be a list")
   if(!is.list(xaxis_text)) stop("xaxis_text has to be a list")
@@ -69,16 +70,16 @@ plot_cluster <- function(data,
 
 
   #Farben zuordnen
-  n_clusters <- length(unique(df$Clusterlabel))
+  n_clusters <- length(unique(data$Clusterlabel))
   color_ramp <- colorRampPalette(col_palette)
   colors <- color_ramp(n_clusters)
-  sorted_clusters <- sort(unique(df$Clusterlabel))
+  sorted_clusters <- sort(unique(data$Clusterlabel))
   cluster_colors <- setNames(colors, sorted_clusters)
-  df$Color <- cluster_colors[df$Clusterlabel]
+  data$Color <- cluster_colors[data$Clusterlabel]
 
   if(!fade){
     # plot erstellen
-    plot <- ggplot(df) +
+    plot <- ggplot(data) +
       geom_line(aes(x = date_and_time, y = Measure,
                     color = Color, group = Member),
                 linewidth = linesize,
@@ -105,7 +106,7 @@ plot_cluster <- function(data,
       plot <- plot +
         do.call(geom_point, c(
           list(aes(x = date_and_time, y = Measure, color = Color),
-               data = df,
+               data = data,
                show.legend = FALSE),
           points
         ))
@@ -113,7 +114,7 @@ plot_cluster <- function(data,
 
     # daten mitgeben
     if(return_data){
-      return(list(plot = plot, data = df))
+      return(list(plot = plot, data = data))
     } else {
       return(plot)
     }
@@ -144,7 +145,7 @@ plot_cluster <- function(data,
     res
   }
 
-  df <- df |>
+  data <- data |>
     group_by(Member) |>
     arrange(Timeindex, .by_group = TRUE) |>
     mutate(
@@ -158,8 +159,8 @@ plot_cluster <- function(data,
     ) |>
     ungroup()
 
-  #df ohne extra zwischenschritte speichern
-  noextrastepsdf <- df
+  #data ohne extra zwischenschritte speichern
+  noextrastepsdf <- data
 
   #extra schritte erstellen
   if(steps > 1){
@@ -174,7 +175,7 @@ plot_cluster <- function(data,
       cols <- colorRampPalette(c(col1, col2))(steps)
 
 
-      #zwischenschritte als df
+      #zwischenschritte als data
       data.frame(
         date_and_time = x[-(steps+1)],
         Measure = y[-(steps+1)],
@@ -185,7 +186,7 @@ plot_cluster <- function(data,
     }
 
     #zwischenschritte einfügen
-    df <- df |>
+    data <- data |>
       filter(!is.na(Timeindex_end)) |>
       group_by(Member) |>
       group_modify(~{
@@ -203,7 +204,7 @@ plot_cluster <- function(data,
 
 
   #plot erstellen
-  plot <- ggplot(df) +
+  plot <- ggplot(data) +
     geom_segment(aes(x = date_and_time, y = Measure,
                      xend = date_and_time_end, yend = Measure_end,
                      color = dyncolor),
@@ -240,7 +241,7 @@ plot_cluster <- function(data,
 
   #daten mitgeben?
   if(return_data){
-    return(list(plot = plot,data = df,steplessdata = noextrastepsdf))
+    return(list(plot = plot,data = data,steplessdata = noextrastepsdf))
   } else {
     return(plot)
   }

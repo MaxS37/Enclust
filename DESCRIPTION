@@ -2,7 +2,7 @@ Package: Enclust
 Title: Package for Clustering environmental data
 Version: 0.0.0.9000
 Authors@R: 
-    person("Max", "Seidel", email = "first.last@example.com", role = c("aut", "cre"))
+    person("Max", "Seidel", email = "max.seidel@stud.htw-dresden.de", role = c("aut", "cre"))
 Description: Loading, clustering and visualizing ensemble environmental data from NOMADS
 License: MIT
 Encoding: UTF-8

@@ -28,6 +28,8 @@ Default is \code{max(diff(km$centers)) > 4}
 If given a custom limit function the function should return TRUE if the clustering should be done}
 
 \item{max_cluster}{Maximum allowed number of clusters.}
+
+\item{max_depth}{Maximum depth of a clusterlabel (eg. 1.1.1.2 -> depth = 3)}
 }
 \value{
 A data frame with additional columns:
