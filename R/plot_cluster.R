@@ -43,7 +43,7 @@
 #')
 
 plot_cluster <- function(df,
-                         col_palette= c("#FFF000","#FFB556","#FF7133","#FF0000","#5700A4","#2100FF"),
+                         col_palette= c("#67FF00","#FFF000","#FFB556","#FF7133","#FF0000","#5700A4","#2100FF"),
                          return_data = FALSE,
                          linesize = 1.2,
                          linealpha = 1,
