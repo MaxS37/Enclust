@@ -54,7 +54,7 @@ cluster_info <- function(df) {
       totss          = mean(totss),
       totwithinss    = mean(totwithinss),
       betweensstotss = mean(betweensstotss),
-      rsquarred      = mean(rsquarred),
+      rsquared      = mean(rsquared),
       .groups = "drop"
     )
 
@@ -70,7 +70,7 @@ cluster_info <- function(df) {
       totss          = ifelse(all(is.na(totss)), NA, max(totss, na.rm = TRUE)),
       totwithinss    = ifelse(all(is.na(totwithinss)), NA, max(totwithinss, na.rm = TRUE)),
       betweensstotss = ifelse(all(is.na(betweensstotss)), NA, max(betweensstotss, na.rm = TRUE)),
-      rsquarred      = ifelse(all(is.na(rsquarred)), NA, max(rsquarred, na.rm = TRUE)),
+      rsquared      = ifelse(all(is.na(rsquared)), NA, max(rsquared, na.rm = TRUE)),
       .groups = "drop"
     )
 
