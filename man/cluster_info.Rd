@@ -2,9 +2,12 @@
 % Please edit documentation in R/cluster_info.R
 \name{cluster_info}
 \alias{cluster_info}
-\title{cluster_info}
+\title{Get cluster information}
 \usage{
 cluster_info(df)
+}
+\arguments{
+\item{df}{A dataframe which was created using the define_cluster function}
 }
 \value{
 A list (invisibly) containing:
@@ -20,8 +23,6 @@ A list (invisibly) containing:
 }
 \description{
 This function gives a summary of the clustered dataframe of define_cluster
-
-#'@param df A dataframe which was created using the define_cluster function
 }
 \details{
 When calling the function, the following elements are printed to the console:

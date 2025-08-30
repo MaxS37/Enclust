@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_data.R
 \name{get_data}
 \alias{get_data}
-\title{get_data()}
+\title{Get environmental data}
 \usage{
 get_data(
   date = gsub("-", "", Sys.Date()),

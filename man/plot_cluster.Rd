@@ -2,17 +2,19 @@
 % Please edit documentation in R/plot_cluster.R
 \name{plot_cluster}
 \alias{plot_cluster}
-\title{plot_cluster}
+\title{create plots for clustered data}
 \usage{
 plot_cluster(
-  df,
-  col_palette = c("#19FF00", "#FFF000", "#FFB556", "#FF7133", "#FF0000", "#5700A4",
+  data,
+  col_palette = c("#67FF00", "#FFF000", "#FFB556", "#FF7133", "#FF0000", "#5700A4",
     "#2100FF"),
   return_data = FALSE,
   linesize = 1.2,
   linealpha = 1,
   points = list(),
+  fade = TRUE,
   fade_till_end = FALSE,
+  legend = FALSE,
   steps = 1,
   background = "grey37",
   axis_bg = "grey37",
@@ -23,8 +25,6 @@ plot_cluster(
 )
 }
 \arguments{
-\item{df}{A dataframe created by the define_cluster function}
-
 \item{col_palette}{Character vector of colors to use for clusters.}
 
 \item{return_data}{Logical. If TRUE, returns a list containing the plot and the processed data.}
@@ -50,6 +50,8 @@ plot_cluster(
 \item{yaxis_text}{List of parameters passed to \code{element_text()} for y-axis text.}
 
 \item{break_times}{Character. Breaks for the x-axis in \code{scale_x_datetime}.}
+
+\item{df}{A dataframe created by the define_cluster function}
 }
 \value{
 If \code{return_data = FALSE} (default), returns a \code{ggplot} object.

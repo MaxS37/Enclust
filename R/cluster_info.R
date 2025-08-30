@@ -1,9 +1,8 @@
-#' @title Get cluster information
+#'@title Get cluster information
 #'
-#' @description
-#' This function gives a summary of the clustered dataframe of define_cluster
+#'@description This function gives a summary of the clustered dataframe of define_cluster
 #'
-#' #'@param df A dataframe which was created using the define_cluster function
+#'@param df A dataframe which was created using the define_cluster function
 #'
 #'@return A list (invisibly) containing:
 #' \describe{

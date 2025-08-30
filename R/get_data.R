@@ -1,10 +1,5 @@
-# get_data
-#
-# this function enables GFS Weather Data acquisition via nomads
-
-#' @title get_data()
-#' @description
-#' This Function fetches data from https://nomads.ncep.noaa.gov, transforms it and loads it into a dataframe.
+#' @title Get environmental data
+#' @description This Function fetches data from https://nomads.ncep.noaa.gov, transforms it and loads it into a dataframe.
 #'
 #'
 #' @param date string that defines the date of the forecast

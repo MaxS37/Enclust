@@ -2,13 +2,14 @@
 % Please edit documentation in R/define_cluster.R
 \name{define_cluster}
 \alias{define_cluster}
-\title{define_cluster}
+\title{create clusters on given dataset}
 \usage{
 define_cluster(
   data,
   k = 2,
   limit = function(km, subdata, a = 4) max(diff(km$centers)) > a,
-  max_cluster = 8
+  max_cluster = 8,
+  max_depth = 3
 )
 }
 \arguments{
