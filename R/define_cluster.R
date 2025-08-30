@@ -110,14 +110,21 @@ define_cluster <- function(data,
     for (clust in unique(df$Cluster[df$Timeindex == ts])) {
       idx <- df$Timeindex == ts & df$Cluster == clust
 
+
       df$clustersize[idx] <- sum(idx)
 
-      if(sum(idx) < 2) next
+      if(length(unique(df$Measure[idx])) < 2) next
 
-      # k wählen je nach Punktmenge
-      n_points <- sum(idx)
-      k <- min(start_k, max(2, ceiling(n_points / 2)))
+      # k wählen je nach Punktmenge,ckmeans braucht eindeutige werte
+      n_points <- length(unique(df$Measure[idx]))
 
+      k <- min(start_k, max(2, floor(n_points / 2)))
+      #cat("Timeindex:",unique(df$Timeindex[idx]),"|")
+      #cat("Member:",df$Member[idx],"|")
+      #cat("npoints",n_points,"|")
+      #cat("k:",k,"|","startk:",start_k,"\n")
+      #cat(df$Measure[idx],"\n")
+      #cat("-----------------\n")
       km <- Ckmeans.1d.dp(df$Measure[idx], k = k)
 
       # kmeans Sachen speichern
