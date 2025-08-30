@@ -45,21 +45,21 @@
 #')
 
 plot_cluster <- function(data,
-                         col_palette= c("#67FF00","#FFF000","#FFB556","#FF7133","#FF0000","#5700A4","#2100FF"),
+                         col_palette= c("#67FF00","#97FF00","#FFF000","#FFB556","#FF7133","#FF0000","#5700A4","#2100FF"),
                          return_data = FALSE,
                          linesize = 1.2,
                          linealpha = 1,
                          points = list(),
                          fade = TRUE,
                          fade_till_end = FALSE,
-                         legend = FALSE,
+                         legend = TRUE,
                          steps = 1,
                          background = "grey37",
                          axis_bg = "grey37",
                          grid_col = "white",
                          xaxis_text = list(color = "black", size = 10),
                          yaxis_text = list(color = "black", size = 10),
-                         break_times = "1 day"){
+                         break_times = "2 day"){
 
 
   if(!is.list(points)) stop("points has to be a list")
@@ -91,7 +91,7 @@ plot_cluster <- function(data,
         labels = if(legend) names(cluster_colors) else NULL,
         name   = if(legend) "Cluster" else NULL
       ) +
-      scale_x_datetime(date_labels = "%d.%m. %H:00", date_breaks = break_times) +
+      scale_x_datetime(date_labels = "%d.%m. %Hh", date_breaks = break_times) +
       theme(
         panel.background = element_rect(fill = background),
         plot.background  = element_rect(fill = axis_bg),
@@ -217,7 +217,7 @@ plot_cluster <- function(data,
       labels = if(legend) names(cluster_colors) else NULL,
       name   = if(legend) "Cluster" else NULL
     ) +
-    scale_x_datetime(date_labels = "%d.%m. %H:00", date_breaks = break_times) +
+    scale_x_datetime(date_labels = "%d.%m. %Hh", date_breaks = break_times) +
     theme(
       panel.background = element_rect(fill = background),
       plot.background  = element_rect(fill = axis_bg),

@@ -6,22 +6,22 @@
 \usage{
 plot_cluster(
   data,
-  col_palette = c("#67FF00", "#FFF000", "#FFB556", "#FF7133", "#FF0000", "#5700A4",
-    "#2100FF"),
+  col_palette = c("#67FF00", "#97FF00", "#FFF000", "#FFB556", "#FF7133", "#FF0000",
+    "#5700A4", "#2100FF"),
   return_data = FALSE,
   linesize = 1.2,
   linealpha = 1,
   points = list(),
   fade = TRUE,
   fade_till_end = FALSE,
-  legend = FALSE,
+  legend = TRUE,
   steps = 1,
   background = "grey37",
   axis_bg = "grey37",
   grid_col = "white",
   xaxis_text = list(color = "black", size = 10),
   yaxis_text = list(color = "black", size = 10),
-  break_times = "1 day"
+  break_times = "2 day"
 )
 }
 \arguments{

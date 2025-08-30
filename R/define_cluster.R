@@ -141,7 +141,7 @@ define_cluster <- function(data,
       df$Clusterlabel <- map[df$Cluster]
 
       #maximale tiefe (1.1.1 -> Tiefe 2)
-      depth <- unique(nchar(df$Clusterlabel[idx]) - nchar(gsub("\\.","",df$Clusterlabel[idx])) )
+      depth <- unique(nchar(df$Cluster[idx]) - nchar(gsub("\\.","",df$Cluster[idx])) )
       if(depth >= max_depth) next
 
       #maximale anzahl an cluster
