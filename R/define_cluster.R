@@ -99,8 +99,7 @@ define_cluster <- function(data,
   df$totss <- NA_integer_
   df$totwithinss <- NA_integer_
   df$betweensstotss <- NA_integer_
-  df$exvarianz <- NA_integer_
-  df$rsquarred <- NA_integer_
+  df$rsquared <- NA_integer_
   df$clustersize <- NA_integer_
 
 
@@ -126,7 +125,7 @@ define_cluster <- function(data,
       df$totss[idx] <- km$totss
       df$totwithinss[idx] <- km$tot.withinss
       df$betweensstotss[idx] <- km$betweenss/km$totss
-      df$rsquarred[idx] <- 1 - km$tot.withinss/km$totss
+      df$rsquared[idx] <- 1 - km$tot.withinss/km$totss
 
       map <- cluster_mapping(unique(df$Cluster))
       df$Clusterlabel <- map[df$Cluster]
