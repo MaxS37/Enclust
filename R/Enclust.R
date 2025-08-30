@@ -17,5 +17,10 @@
 #'         and member histories.
 #' }
 #'
+#' Sample Data:
+#' \itemize{
+#'   \item \code{\link{tempdata}}: Sample temperature data.
+#'   \item \code{\link{winddata}}: Sample wind data.
+#' }
 #'
 "_PACKAGE"

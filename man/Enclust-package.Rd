@@ -23,6 +23,12 @@ from clustered ensemble data.
 created by \code{define_cluster}, including cluster sizes, statistics,
 and member histories.
 }
+
+Sample Data:
+\itemize{
+\item \code{\link{tempdata}}: Sample temperature data.
+\item \code{\link{winddata}}: Sample wind data.
+}
 }
 \author{
 \strong{Maintainer}: Max Seidel \email{max.seidel@stud.htw-dresden.de}
