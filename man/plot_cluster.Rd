@@ -19,8 +19,8 @@ plot_cluster(
   background = "grey37",
   axis_bg = "grey37",
   grid_col = "white",
-  xaxis_text = list(color = "black", size = 10),
-  yaxis_text = list(color = "black", size = 10),
+  xaxis_text = list(color = "black", size = 15),
+  yaxis_text = list(color = "black", size = 15),
   break_times = "2 day"
 )
 }
